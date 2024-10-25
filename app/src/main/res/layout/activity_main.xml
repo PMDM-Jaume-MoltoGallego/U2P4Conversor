@@ -26,12 +26,24 @@
         android:id="@+id/button_Convertir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="396dp"
         android:text="@string/buttonConvertir"
         app:layout_constraintEnd_toEndOf="@+id/et_pulgada"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/et_pulgada"
         app:layout_constraintTop_toBottomOf="@+id/et_pulgada" />
+
+    <TextView
+        android:id="@+id/et_resultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="@string/editTextHintResultado"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/button_Convertir"
+        app:layout_constraintStart_toStartOf="@+id/button_Convertir"
+        app:layout_constraintTop_toBottomOf="@+id/button_Convertir" />
 
     <EditText
         android:id="@+id/et_pulgada"
@@ -50,21 +62,15 @@
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <EditText
-        android:id="@+id/et_Resultado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.google.android.material.chip.Chip
+        android:id="@+id/in_cm"
+        android:layout_width="122dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="34dp"
-        android:ems="10"
-        android:hint="@string/editTextHintResultado"
-        android:inputType="numberDecimal"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
+        android:text="@string/in_cm"
         android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/button_Convertir"
-        app:layout_constraintStart_toStartOf="@+id/button_Convertir"
-        app:layout_constraintTop_toBottomOf="@+id/button_Convertir" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_pulgada" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
