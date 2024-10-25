@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         Chip incm = findViewById(R.id.in_cm);
         //TODO Añadimos la referencia al TextView
         TextView textView = findViewById(R.id.textView);
+        //TODO Añadimos la referencia al TextView de error
+        TextView errorText = findViewById(R.id.errorText);
 
 
         //TODO Cambiamos el valor del boolean para saber si estamos de una forma u otra y actualizamos los textos
@@ -55,7 +57,12 @@ public class MainActivity extends AppCompatActivity {
             try {
                 String dato = etPulgada.getText().toString();
                 etResultado.setText(convertirDoble(dato));
+                //TODO Nos asegurames que si funciona correctamente NO se vea el error
+                errorText.setVisibility(View.GONE);
             } catch (Exception e) {
+                //TODO Si no funciona hacemos que se vea el error con el mensaje apropiado
+                errorText.setText(e.getMessage());
+                errorText.setVisibility(View.VISIBLE);
                 Log.e("LogsConversor", e.getMessage());
             }
         });
@@ -75,10 +82,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //TODO Convertimos según sea una conversión u otra
-    private String convertirDoble(String medida) {
+    private String convertirDoble(String medida) throws Exception {
         //TODO Manejamos la entrada de datos vacía
         if (medida.isEmpty()) {
-            return "";
+            throw new Exception("El valor no puede estar vacío");
+        }
+        if (Double.parseDouble(medida) < 1){
+            throw new Exception("Sólo números >=1");
         }
         if (b) {
             return convertirAPulgadas(medida);
@@ -87,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 
     //TODO Pulgadas a Centímetros
     private String convertirAPulgadas(String pulgadaText){
