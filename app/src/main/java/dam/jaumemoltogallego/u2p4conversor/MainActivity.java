@@ -20,7 +20,23 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainActivity extends AppCompatActivity {
     private final String DEBUG_TAG = this.getClass().getSimpleName();
-    private Boolean b = true;
+    private Boolean b = false;
+    public EditText etPulgada;
+    public TextView etResultado;
+    public Button buttonConvertir;
+    public Chip incm;
+    //TODO Añadimos la referencia al TextView
+    public TextView textView;
+    //TODO Añadimos la referencia al TextView de error
+    public TextView errorText;
+
+    //TODO Creamos donde guardar los estados de las variables
+    private static final String KEY_B = "key_b";
+    private static final String KEY_ERROR_TEXT = "key_error_text";
+    private static final String KEY_INPUT_VALUE = "key_input_value";
+    private static final String KEY_RESULT_VALUE = "key_result_value";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,29 +104,49 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+
+        b = savedInstanceState.getBoolean(KEY_B, false);
+        etPulgada.setText(savedInstanceState.getString(KEY_INPUT_VALUE, ""));
+        etResultado.setText(savedInstanceState.getString(KEY_RESULT_VALUE, ""));
+        String errorMessage = savedInstanceState.getString(KEY_ERROR_TEXT, null);
+        if (errorMessage != null) {
+            errorText.setText(errorMessage);
+            errorText.setVisibility(View.VISIBLE);
+        } else {
+            errorText.setVisibility(View.GONE);
+        }
+        Log.i(DEBUG_TAG, "Valor variables restaurado");
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+
+        outState.putBoolean(KEY_B, b);
+        outState.putString(KEY_INPUT_VALUE, etPulgada.getText().toString());
+        outState.putString(KEY_RESULT_VALUE, etResultado.getText().toString());
+        if (errorText.getVisibility() == View.VISIBLE) {
+            outState.putString(KEY_ERROR_TEXT, errorText.getText().toString());
+        }
+        Log.i(DEBUG_TAG, "Valor variables guardado");
     }
 
     private void setUI() {
-        EditText etPulgada = findViewById(R.id.et_pulgada);
-        TextView etResultado = findViewById(R.id.et_resultado);
-        Button buttonConvertir = findViewById(R.id.button_Convertir);
-        Chip incm = findViewById(R.id.in_cm);
+        etPulgada = findViewById(R.id.et_pulgada);
+        etResultado = findViewById(R.id.et_resultado);
+        buttonConvertir = findViewById(R.id.button_Convertir);
+        incm = findViewById(R.id.in_cm);
         //TODO Añadimos la referencia al TextView
-        TextView textView = findViewById(R.id.textView);
+        textView = findViewById(R.id.textView);
         //TODO Añadimos la referencia al TextView de error
-        TextView errorText = findViewById(R.id.errorText);
+        errorText = findViewById(R.id.errorText);
 
 
         //TODO Cambiamos el valor del boolean para saber si estamos de una forma u otra y actualizamos los textos
         incm.setOnClickListener(v -> {
             Log.i(DEBUG_TAG, "Botón in-cm pulsado");
             b = !b;
-            actualizarTexto(textView,incm, etPulgada);
+            actualizarTexto(textView,incm, etPulgada, etResultado);
         });
 
         //TODO convertimos los datos a pulgadas o centímetros
@@ -131,15 +167,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //TODO Actualizamos el texto del título azul y el texto del chip
-    private void actualizarTexto(TextView textView, Chip incm , EditText etPulgada)  {
+    private void actualizarTexto(TextView textView, Chip incm , EditText etPulgada, TextView etResultado)  {
         if (b) {
             textView.setText("Conversión de Centímetros a Pulgadas");
             etPulgada.setText("Introduce los centímetros");
+            etResultado.setText("Resultado");
             incm.setText("cm-in");
             incm.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
         } else {
             textView.setText("Conversión de Pulgadas a Centímetros");
             etPulgada.setText("Introduce las pulgadas");
+            etResultado.setText("Resultado");
             incm.setText("in-cm");
             incm.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
         }
@@ -163,18 +201,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     //TODO Pulgadas a Centímetros
     private String convertirAPulgadas(String pulgadaText){
         double pulgadaValue = Double.parseDouble(pulgadaText) * 2.54;
-
         return String.format("%.2f pulgadas",pulgadaValue);
     }
 
     //TODO Centímetros a pulgadas
     private String convertirACentimetros(String centimetrosText){
         double centimetrosValue = Double.parseDouble(centimetrosText) / 2.54;
-
         return String.format("%.2f centímetros", centimetrosValue);
     }
+
+
+    //TODO Al hacer el cambio de horientación lo que se hace es un relanzamiento o una recreación de
+    // la actividad, esto implica que se tiene que reorganizar toda la vista y se destruyen los TextViews creados
+    // y por ello necesitaremos guardar la info con el método onSaveInstanceState y el método onRestoreInstanceState
 }
