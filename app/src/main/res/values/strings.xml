@@ -7,4 +7,10 @@
     <string name="editTextHintResultado">Resultado</string>
 
     <string name="in_cm">in-cm</string>
+    <string name="km_mi">km-mi</string>
+    <string name="c_f">Cº-Fº</string>
+
+    <string name="ayudaTitulo">AYUDA</string>
+    <string name="ayuda">Para utilizar la apliación primero deberemos de leer los títulos y saber que estamos haciendo y en que conversión estamos. Una vez leído rellenaremos el campo de texto de arriba con el dato a introducir (números) y luego daremos al botón de convertir. Los errores más comúnes son el introducir un número menor a 1 o no introducir nada y pulsar el botón convertir.</string>
+    <string name="salir">Para salir gire la orientación del móvil</string>
 </resources>

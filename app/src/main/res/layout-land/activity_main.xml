@@ -25,10 +25,11 @@
         android:id="@+id/c_f"
         android:layout_width="122dp"
         android:layout_height="54dp"
-        android:layout_marginTop="316dp"
+        android:layout_marginTop="212dp"
         android:text="@string/c_f"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/et_pulgada" />
 
@@ -114,8 +115,8 @@
         android:id="@+id/ayuda"
         android:layout_width="67dp"
         android:layout_height="71dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="180dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/informacion" />
